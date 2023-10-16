@@ -1,5 +1,7 @@
 from django.core.management.base import BaseCommand
-from CarFinder.CarRecomender.models import Cars
+from django.utils import timezone
+
+from CarRecomender.models import Car, ScrapingReport
 import time as t
 import datetime
 
@@ -57,11 +59,12 @@ def get_data(pages, last_retrieved_item):
             break
         # print(len(cars_info_list))
 
-    return cars_info_list, len(cars_info_list)
+    return cars_info_list
 
 
-last_item = {'make': 'پورشه، کاین',
-             'time': 'لحظاتی پیش',
+# last_car = ScrapingReport.objects.order_by("-report_date")[0]
+# last_car_obj = Cars.objects.get(pk=latest_report.last_retrieve_car)
+last_car = {'make': 'پورشه، کاین',
              'year': '2013',
              'mileage': '72,000 کیلومتر',
              'condition': '6 سیلندر',
@@ -73,4 +76,10 @@ class Command(BaseCommand):
     help = 'Insert a list of cars into the database'
 
     def handle(self, *args, **kwargs):
-        cars = get_data(100, last_item)
+        print("in Command")
+        cars_list = get_data(100, last_car)
+        for car in cars_list:
+            Car.objects.create(**car)
+        ScrapingReport.objects.create(report_date=timezone.now(), counts=len(cars_list), last_retrieve_car=cars_list[0])
+
+        self.stdout.write(self.style.SUCCESS('Successfully inserted cars into database.'))

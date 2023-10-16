@@ -29,7 +29,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'CarRecomender.apps.CarrecomenderConfig',
+    'CarRecomender',
+    #'CarRecomender.apps.CarrecomenderConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
