@@ -3,12 +3,11 @@ from django.http import HttpResponseRedirect
 
 # Register your models here.
 from .models import ScrapingReport, Car
-from django.urls import path
+from django.urls import path, reverse
 
 
 @admin.register(Car)
 class CarAdmin(admin.ModelAdmin):
-    # actions = [insert_cars_into_database]
     list_display = ['make', 'year', 'mileage', 'condition', 'location', 'price']
     change_list_template = 'admin/change_list.html'
 
@@ -21,9 +20,14 @@ class CarAdmin(admin.ModelAdmin):
 
     def insert_cars_into_database(self, request):
         from django.core import management
-        management.call_command('insert_data')
-        self.message_user(request, 'Cars inserted successfully.')
-        # return HttpResponseRedirect(request.path)
+        result = management.call_command('insert_data')
+        if result == 'There is no new Car info':
+            self.message_user(request, 'No New Cars detected.')
+        else:
+            self.message_user(request, 'Cars inserted successfully.')
+
+        change_list_url = reverse('admin:CarRecomender_car_changelist')
+        return HttpResponseRedirect(change_list_url)
 
 
 class ScrapingReportAdmin(admin.ModelAdmin):

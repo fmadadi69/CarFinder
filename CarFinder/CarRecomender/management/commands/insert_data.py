@@ -27,7 +27,7 @@ def get_data(pages, last_retrieved_item):
         no_pages -= 1
 
     card_content = browser.find_elements(By.XPATH, "//a[contains(@class, 'bama-ad')]")
-
+    # print(f'Number of carcontent is :{len(card_content)}')
     for car in card_content:
 
         make = car.find_element(By.XPATH, ".//p[contains(@class, 'bama-ad__title')]")
@@ -75,8 +75,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         cars_list = get_data(1, last_car.last_retrieve_car)
-        for car in cars_list:
-            Car.objects.create(**car)
-        ScrapingReport.objects.create(report_date=timezone.now(), counts=len(cars_list), last_retrieve_car=cars_list[0])
-
-        self.stdout.write(self.style.SUCCESS('Successfully inserted cars into database.'))
+        if len(cars_list) != 0:
+            for car in cars_list:
+                Car.objects.create(**car)
+            ScrapingReport.objects.create(report_date=timezone.now(), counts=len(cars_list), last_retrieve_car=cars_list[0])
+            self.stdout.write(self.style.SUCCESS('Successfully inserted cars into database.'))
+        else:
+            return 'There is no new Car info'
