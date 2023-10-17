@@ -1,0 +1,13 @@
+{% extends "admin/change_list.html" %}
+
+{% block content %}
+    <div class = "custom-action">
+        <h2>Insert Cars into the Database</h2>
+        <form method="post" action="{% url 'admin:insert_cars_into_database'%}">
+            {% csrf_token %}
+            <button type="submit">Insert Cars</button>
+        </form>
+
+    </div>
+{{ block.super }}
+{% endblock %}
