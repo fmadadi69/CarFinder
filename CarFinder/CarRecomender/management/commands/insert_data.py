@@ -74,7 +74,7 @@ class Command(BaseCommand):
     help = 'Insert a list of cars into the database'
 
     def handle(self, *args, **kwargs):
-        cars_list = get_data(1, last_car.last_retrieve_car)
+        cars_list = get_data(100, last_car.last_retrieve_car)
         if len(cars_list) != 0:
             for car in cars_list:
                 Car.objects.create(**car)

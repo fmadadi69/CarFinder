@@ -23,3 +23,12 @@ class Car(models.Model):
 
     def __str__(self):
         return self.make
+
+
+class CarPrediction(models.Model):
+    make = models.CharField(max_length=100)
+    year = models.CharField(max_length=100)
+    mileage = models.CharField(max_length=100)
+    predicted_price = models.CharField(max_length=100)
+    prediction_date = models.DateTimeField()
+
