@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>پیش بینی قیمت خودرو</title>
+</head>
+<body>
+    <h1>لطفا ویژگی های خودروی مورد نظرتان را وارد نمایید:</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">پیش بینی قیمت</button>
+
+    </form>
+</body>
+</html>

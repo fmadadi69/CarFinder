@@ -1,6 +1,5 @@
 from django.db import models
 
-
 # Create your models here.
 
 class ScrapingReport(models.Model):
@@ -29,6 +28,7 @@ class CarPrediction(models.Model):
     make = models.CharField(max_length=100)
     year = models.CharField(max_length=100)
     mileage = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
     predicted_price = models.CharField(max_length=100)
     prediction_date = models.DateTimeField()
 

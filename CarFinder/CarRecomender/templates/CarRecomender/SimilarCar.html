@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>مشاهده خودروهای مشابه</title>
+</head>
+<body>
+    <h2>ویژگی های خودروی مورد نظر شما عبارت است از:</h2>
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>{{form.make.label_tag}}</td>
+                <td>{{form.make.value}}</td>
+            </tr>
+            <tr>
+                <td>{{form.mileage.label_tag}}</td>
+                <td>{{form.mileage.value}}</td>
+            </tr>
+            <tr>
+                <td>{{form.year.label_tag}}</td>
+                <td>{{form.year.value}} </td>
+            </tr>
+            <tr>
+                <td>{{form.location.label_tag}}</td>
+                <td>{{form.location.value}} </td>
+            </tr>
+        </table>
+    </form>
+    <h2>قیمت پیشنهادی:</h2>
+    <p>{{prediction.predicted_price}}</p>
+    <br/>
+    <br/>
+    <h2> لیست آگهی های مشابه خودروی مورد نظر شما:</h2>
+    <table>
+        <tr>
+            <td>مدل</td>
+            <td>کارکرد</td>
+            <td>سال ساخت</td>
+            <td>مکان</td>
+            <td>قیمت</td>
+        </tr>
+        {% for car in similar_cars %}
+            <tr>
+                <td>{{car.make}}</td>
+                <td>{{car.mileage}}</td>
+                <td>{{car.year}}</td>
+                <td>{{car.location}}</td>
+                <td>{{car.price}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>
