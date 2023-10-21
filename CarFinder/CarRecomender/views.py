@@ -3,9 +3,22 @@ from django.shortcuts import render, redirect, get_object_or_404, get_list_or_40
 from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
+from sklearn import tree
 
 from .models import Car, CarPrediction
 from .forms import CarPredictionForm
+
+
+def predict_price(car):
+    x, y = [], []
+    all_cars = Car.objects.all()
+    for car in all_cars:
+        x.append([car.make, car.year, car.mileage, car.location])
+        y.append(car.price)
+    clf = tree.DecisionTreeClassifier()
+    clf = clf.fit(x, y)
+
+    return clf.predict([car])
 
 
 # Create your views here.
@@ -13,8 +26,14 @@ def car_prediction(request):
     if request.method == 'POST':
         form = CarPredictionForm(request.POST)
         if form.is_valid():
+            user_desired_car = [
+                form.cleaned_data['make'],
+                form.cleaned_data['year'],
+                form.cleaned_data['mileage'],
+                form.cleaned_data['location']
+            ]
             car_prediction_form = form.save(commit=False)
-            car_prediction_form.predicted_price = 100  # WRITE A FUNCTION TO PREDICT PRICE
+            car_prediction_form.predicted_price = predict_price(user_desired_car)
             car_prediction_form.prediction_date = timezone.now()
             car_prediction_form.save()
 
