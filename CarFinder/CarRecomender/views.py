@@ -4,6 +4,10 @@ from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
 from sklearn import tree
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder
 
 from .models import Car, CarPrediction
 from .forms import CarPredictionForm
@@ -11,14 +15,41 @@ from .forms import CarPredictionForm
 
 def predict_price(car):
     x, y = [], []
+    make, year, mileage, location = [], [], [], []
+
     all_cars = Car.objects.all()
     for car in all_cars:
-        x.append([car.make, car.year, car.mileage, car.location])
+        make.append([car.make])
+        year.append([car.year])
+        mileage.append([car.mileage])
+        location.append([car.location])
+        # x.append([car.make, car.year, car.mileage, car.location])
         y.append(car.price)
-    clf = tree.DecisionTreeClassifier()
-    clf = clf.fit(x, y)
 
-    return clf.predict([car])
+    # clf = tree.DecisionTreeClassifier()
+    # clf = clf.fit(x, y)
+    # return clf.predict([car])
+    encoder = OneHotEncoder(sparse=False, handle_unknown='ignore')
+    encoder.fit(make)
+    encoded_make = encoder.transform(make)
+    encoder.fit(year)
+    encoded_year = encoder.transform(make)
+    encoder.fit(mileage)
+    encoded_mileage = encoder.transform(make)
+    encoder.fit(location)
+    encoded_location = encoder.transform(make)
+    encoded_zip = []
+    for make_z, year_z, mileage_z, location_z in zip(encoded_make, encoded_year, encoded_mileage, encoded_location):
+        encoded_zip.append([make_z, year_z, mileage_z, location_z])
+
+    x_train, x_test, y_train, y_test = train_test_split(encoded_zip, y, test_size=0.2, random_state=42)
+    model = RandomForestRegressor(n_estimators=100, random_state=42)
+    model.fit(x_train, y_train)
+    predictions = model.predict(x_test)
+
+    mse = mean_squared_error(y_test, predictions)
+    print(f'mean squared error: {mse}')
+    return predictions
 
 
 # Create your views here.
