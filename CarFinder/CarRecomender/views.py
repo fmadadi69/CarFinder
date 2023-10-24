@@ -79,7 +79,7 @@ def similar_cars(request, prediction_id):
         'year': prediction.year,
         'location': prediction.location
     })
-    all_similar_cars = get_list_or_404(Car)  # ADD FILTER QUERY TO SHOW ONLY SIMILAR CARS
+    all_similar_cars = get_list_or_404(Car, make = prediction.make)  # ADD FILTER QUERY TO SHOW ONLY SIMILAR CARS
     return render(request, 'CarRecomender/SimilarCar.html',
                   {'form': form, 'prediction': prediction, 'similar_cars': all_similar_cars})
 

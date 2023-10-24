@@ -4,7 +4,8 @@ from django.utils.translation import gettext_lazy as _
 
 
 class CarPredictionForm(forms.ModelForm):
-    make = forms.ModelChoiceField(queryset=Car.objects.values_list('make', flat=True).distinct(), empty_label=None, to_field_name="make")
+    make = forms.ModelChoiceField(queryset=Car.objects.values_list('make', flat=True).distinct(),
+                                  empty_label=None, to_field_name="make", label='مدل')
 
     class Meta:
         model = CarPrediction

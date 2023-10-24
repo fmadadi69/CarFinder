@@ -1,0 +1,44 @@
+body{
+    background-color: #1F4C49;
+}
+.flex-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.flex-item{
+    flex: fit-content;
+    padding: 10px;
+    max-height: 100%;
+}
+.flex-item img{
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin: 0 auto;
+}
+.form-container{
+    direction: rtl;
+    color: tan;
+}
+.menu{
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    height: 3%;
+    text-align: center;
+    padding: 10px;
+}
+.menu-button{
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: tan;
+    color: #1F4C49;
+    text-decoration: none;
+    border-radius: 4px;
+    margin: 5px;
+}
+.menu-button:hover{
+    background-color: darksalmon;
+}

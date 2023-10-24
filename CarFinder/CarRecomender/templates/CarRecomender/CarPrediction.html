@@ -1,3 +1,5 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'CarRecomender/css/style.css' %}">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,12 +7,25 @@
     <title>پیش بینی قیمت خودرو</title>
 </head>
 <body>
-    <h1>لطفا ویژگی های خودروی مورد نظرتان را وارد نمایید:</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">پیش بینی قیمت</button>
+    <div class="menu">
+        <a href="{% url 'CarRecomender:cars_list'%}" class="menu-button">لیست خودروها</a>
+    </div>
+    <div class="flex-container">
+        <div class="flex-item form-container" style="flex: 40%">
+            <h1>لطفا ویژگی های خودروی مورد نظرتان را وارد نمایید:</h1>
+            <form method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button type="submit">پیش بینی قیمت</button>
 
-    </form>
+            </form>
+        </div>
+        <div class="flex-item" style="flex: 60%">
+            <img src="{% static 'CarRecomender/img/3.jpg' %}" alt="Header Image">
+        </div>
+
+
+    </div>
+
 </body>
 </html>
