@@ -11,45 +11,40 @@ from sklearn.preprocessing import OneHotEncoder
 
 from .models import Car, CarPrediction
 from .forms import CarPredictionForm
+import pandas as pd
+import numpy as np
 
 
-def predict_price(car):
-    x, y = [], []
-    make, year, mileage, location = [], [], [], []
-
+def predict_price(user_car):
+    # ############### Creating Train set ################ #
+    data, x, y = [], [], []
     all_cars = Car.objects.all()
     for car in all_cars:
-        make.append([car.make])
-        year.append([car.year])
-        mileage.append([car.mileage])
-        location.append([car.location])
-        # x.append([car.make, car.year, car.mileage, car.location])
-        y.append(car.price)
+        data.append([car.make, car.year, car.mileage, car.location, car.price])
 
-    # clf = tree.DecisionTreeClassifier()
-    # clf = clf.fit(x, y)
-    # return clf.predict([car])
-    encoder = OneHotEncoder(sparse=False, handle_unknown='ignore')
-    encoder.fit(make)
-    encoded_make = encoder.transform(make)
-    encoder.fit(year)
-    encoded_year = encoder.transform(make)
-    encoder.fit(mileage)
-    encoded_mileage = encoder.transform(make)
-    encoder.fit(location)
-    encoded_location = encoder.transform(make)
-    encoded_zip = []
-    for make_z, year_z, mileage_z, location_z in zip(encoded_make, encoded_year, encoded_mileage, encoded_location):
-        encoded_zip.append([make_z, year_z, mileage_z, location_z])
+    df = pd.DataFrame(data, columns=['make', 'year', 'mileage', 'location', 'price'])
+    encoder = OneHotEncoder(sparse=False)
+    df_encoded = encoder.fit_transform(df[['make', 'location']])
+    df_encoded_df = pd.DataFrame(df_encoded, columns=encoder.get_feature_names_out(['make', 'location']))
+    df = pd.concat([df, df_encoded_df], axis=1)
+    df = df.drop(['make', 'location'], axis=1)
+    x = df.drop('price', axis=1)
+    y = df['price']
 
-    x_train, x_test, y_train, y_test = train_test_split(encoded_zip, y, test_size=0.2, random_state=42)
     model = RandomForestRegressor(n_estimators=100, random_state=42)
-    model.fit(x_train, y_train)
-    predictions = model.predict(x_test)
+    model.fit(x, y)
 
-    mse = mean_squared_error(y_test, predictions)
-    print(f'mean squared error: {mse}')
-    return predictions
+    # ################ Creating Test set ################# #
+    car_df = pd.DataFrame([user_car], columns=['make', 'year', 'mileage', 'location'])
+    car_encoded = encoder.transform(car_df[['make', 'location']])
+    car_encoded_df = pd.DataFrame(car_encoded, columns=encoder.get_feature_names_out(['make', 'location']))
+    car_df = pd.concat([car_df, car_encoded_df], axis=1)
+    car_df = car_df.drop(['make', 'location'], axis=1)
+
+    predicted_price = model.predict(car_df)
+    predicted_price_int = np.round(predicted_price).astype(int)
+
+    return predicted_price_int[0]
 
 
 # Create your views here.
