@@ -1,9 +1,11 @@
 from django import forms
-from .models import CarPrediction
+from .models import CarPrediction, Car
 from django.utils.translation import gettext_lazy as _
 
 
 class CarPredictionForm(forms.ModelForm):
+    make = forms.ModelChoiceField(queryset=Car.objects.values_list('make', flat=True).distinct(), empty_label=None, to_field_name="make")
+
     class Meta:
         model = CarPrediction
         fields = ['make', 'year', 'mileage', 'location']
