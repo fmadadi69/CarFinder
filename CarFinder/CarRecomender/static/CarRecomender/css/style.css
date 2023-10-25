@@ -1,31 +1,66 @@
 body{
-    background-color: #1F4C49;
+    background-color: #0E302D;
 }
 .flex-container{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     height: 100vh;
+    gap: 30px;
+
+
 }
-.flex-item{
-    flex: fit-content;
-    padding: 10px;
-    max-height: 100%;
+.image-form-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    border: 2px solid tan;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px tan;
+    padding: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+    background-color: #1F4C49;
+
 }
-.flex-item img{
-    max-width: 100%;
-    max-height: 100%;
+.image-container{
+    max-width: 60%;
+}
+.image-container img{
+    max-width: 90%;
+    max-height: 90%;
     display: block;
-    margin: 0 auto;
+    margin: auto;
 }
 .form-container{
+    max-width: 40%;
     direction: rtl;
     color: tan;
+    border: 2px solid tan;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px tan;
+    margin-left: 5%;
+    background-color: #385F5C;
+}
+form p{
+    font-family:  sans-serif Arial;
+    font-size: 18px;
+    color: tan;
+    font-weight: bold;
+}
+form h2{
+    font-family:  sans-serif Arial;
+    font-size: 26px;
+    color: tan;
+    font-weight: bolder;
 }
 .menu{
     position: fixed;
-    top: 10px;
-    right: 10px;
+    top: 5%;
+    right: 5%;
     height: 3%;
     text-align: center;
     padding: 10px;
@@ -42,3 +77,56 @@ body{
 .menu-button:hover{
     background-color: darksalmon;
 }
+label{
+    display: inline-block;
+    width: 25%;
+    font-weight: bold;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: antiquewhite;
+    color: #1F4C49;
+
+}
+input[type="text"]{
+    width: 45%;
+    padding: 10px;
+    border:1px solid tan;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #1F4C49;
+    margin-right: 50px;
+    background-color: antiquewhite;
+    font-family:  sans-serif Arial;
+}
+#id_make{
+    width: 45%;
+    padding: 10px;
+    border:1px solid tan;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #1F4C49;
+    background-color: antiquewhite;
+    margin-right: 50px;
+    font-family:  sans-serif Arial;
+    font-weight: bold;
+}
+.button-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+button[type="submit"]{
+    text-align: center;
+    width: 45%;
+    padding: 10px 20px;
+    border:1px solid tan;
+    border-radius: 4px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #1F4C49;
+    background-color: tan;
+    font-family:  sans-serif Arial;
+
+}
+
