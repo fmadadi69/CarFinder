@@ -63,7 +63,7 @@ def car_prediction(request):
             car_prediction_form.prediction_date = timezone.now()
             car_prediction_form.save()
 
-            return redirect(reverse('similar_cars', kwargs={'prediction_id': car_prediction_form.id}))
+            return redirect(reverse('CarRecomender:similar_cars', kwargs={'prediction_id': car_prediction_form.id}))
         else:
             return HttpResponse("Form is not valid. Please check your input.")
     else:
@@ -79,7 +79,7 @@ def similar_cars(request, prediction_id):
         'year': prediction.year,
         'location': prediction.location
     })
-    all_similar_cars = get_list_or_404(Car, make = prediction.make)  # ADD FILTER QUERY TO SHOW ONLY SIMILAR CARS
+    all_similar_cars = get_list_or_404(Car, make=prediction.make)  # ADD FILTER QUERY TO SHOW ONLY SIMILAR CARS
     return render(request, 'CarRecomender/SimilarCar.html',
                   {'form': form, 'prediction': prediction, 'similar_cars': all_similar_cars})
 

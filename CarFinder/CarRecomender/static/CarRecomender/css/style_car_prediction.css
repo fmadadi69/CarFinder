@@ -19,14 +19,14 @@ body{
     border: 2px solid tan;
     border-radius: 10px;
     box-shadow: 5px 5px 10px tan;
-    padding: 5%;
-    margin-left: 5%;
-    margin-right: 5%;
+    padding: 3%;
+    margin-left: 2%;
+    margin-right: 2%;
     background-color: #1F4C49;
 
 }
 .image-container{
-    max-width: 60%;
+    max-width: 50%;
 }
 .image-container img{
     max-width: 90%;
@@ -35,15 +35,16 @@ body{
     margin: auto;
 }
 .form-container{
-    max-width: 40%;
+    max-width: 50%;
     direction: rtl;
     color: tan;
-    border: 2px solid tan;
     padding: 40px;
+    /*border: 2px solid tan;
     border-radius: 10px;
     box-shadow: 5px 5px 10px tan;
+    background-color: #385F5C;*/
     margin-left: 5%;
-    background-color: #385F5C;
+
 }
 form p{
     font-family:  sans-serif Arial;
@@ -51,19 +52,19 @@ form p{
     color: tan;
     font-weight: bold;
 }
-form h2{
+form h3{
     font-family:  sans-serif Arial;
-    font-size: 26px;
     color: tan;
     font-weight: bolder;
 }
 .menu{
     position: fixed;
-    top: 5%;
-    right: 5%;
+    top: 3%;
+    right: 3%;
     height: 3%;
     text-align: center;
     padding: 10px;
+    direction: rtl;
 }
 .menu-button{
     display: inline-block;
@@ -75,21 +76,21 @@ form h2{
     margin: 5px;
 }
 .menu-button:hover{
-    background-color: darksalmon;
+    background-color: blanchedalmond;
 }
 label{
     display: inline-block;
-    width: 25%;
+    width: 30%;
     font-weight: bold;
-    padding: 10px;
+    padding: 5px;
     margin-bottom: 10px;
     background-color: antiquewhite;
     color: #1F4C49;
 
 }
 input[type="text"]{
-    width: 45%;
-    padding: 10px;
+    width: 50%;
+    padding: 5px;
     border:1px solid tan;
     border-radius: 4px;
     font-size: 16px;
@@ -100,8 +101,8 @@ input[type="text"]{
     font-family:  sans-serif Arial;
 }
 #id_make{
-    width: 45%;
-    padding: 10px;
+    width: 50%;
+    padding: 5px;
     border:1px solid tan;
     border-radius: 4px;
     font-size: 16px;
@@ -118,7 +119,7 @@ input[type="text"]{
 }
 button[type="submit"]{
     text-align: center;
-    width: 45%;
+    width: 50%;
     padding: 10px 20px;
     border:1px solid tan;
     border-radius: 4px;

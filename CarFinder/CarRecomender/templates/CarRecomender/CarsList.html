@@ -1,3 +1,5 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'CarRecomender/css/style_cars_list.css' %}">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,27 +7,43 @@
     <title>لیست آگهی های خودرو</title>
 </head>
 <body>
+    <div class = 'flex-container'>
+        <div class="menu-container">
+            <div class="menu">
+                <a href="{% url 'CarRecomender:car_prediction'%}" class="menu-button">پیش بینی قیمت خودرو</a>
+                <a href="{% url 'CarRecomender:cars_list'%}" class="menu-button">لیست خودروها</a>
+            </div>
+        </div>
+        <header class = 'image-container'>
+            <img src="{% static 'CarRecomender/img/5.jpeg'%}">
+        </header>
 
-    <table>
-        <tr>
-            <td>مدل</td>
-            <td>کارکرد</td>
-            <td>سال ساخت</td>
-            <td>وضعیت</td>
-            <td>مکان</td>
-            <td>قیمت</td>
-        </tr>
-        {% for car in cars_list%}
-            <tr>
-                <td>{{car.make}}</td>
-                <td>{{car.mileage}}</td>
-                <td>{{car.year}}</td>
-                <td>{{car.condition}}</td>
-                <td>{{car.location}}</td>
-                <td>{{car.price}}</td>
-            </tr>
-        {% endfor %}
-    </table>
+        <div class="table2-container">
+            <h3> لیست کلیه آگهی های خودرو:</h3>
+            <div class="table2">
+                <table class="scrolling-table">
+                    <tr>
+                        <td class="car_items_header">مدل</td>
+                        <td class="car_items_header">کارکرد</td>
+                        <td class="car_items_header">سال ساخت</td>
+                        <td class="car_items_header">وضعیت</td>
+                        <td class="car_items_header">مکان</td>
+                        <td class="car_items_header">قیمت</td>
+                    </tr>
+                    {% for car in cars_list%}
+                        <tr>
+                            <td class="car_items">{{car.make}}</td>
+                            <td class="car_items">{{car.mileage}}</td>
+                            <td class="car_items">{{car.year}}</td>
+                            <td class="car_items">{{car.condition}}</td>
+                            <td class="car_items">{{car.location}}</td>
+                            <td class="car_items">{{car.price}}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
 
 </body>
 </html>

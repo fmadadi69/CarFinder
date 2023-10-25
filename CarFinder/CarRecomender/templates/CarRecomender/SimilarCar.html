@@ -1,3 +1,5 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'CarRecomender/css/style_similar_cars.css' %}">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,51 +7,73 @@
     <title>مشاهده خودروهای مشابه</title>
 </head>
 <body>
-    <h2>ویژگی های خودروی مورد نظر شما عبارت است از:</h2>
-    <form method="post">
-        {% csrf_token %}
-        <table>
-            <tr>
-                <td>{{form.make.label_tag}}</td>
-                <td>{{form.make.value}}</td>
-            </tr>
-            <tr>
-                <td>{{form.mileage.label_tag}}</td>
-                <td>{{form.mileage.value}}</td>
-            </tr>
-            <tr>
-                <td>{{form.year.label_tag}}</td>
-                <td>{{form.year.value}} </td>
-            </tr>
-            <tr>
-                <td>{{form.location.label_tag}}</td>
-                <td>{{form.location.value}} </td>
-            </tr>
-        </table>
-    </form>
-    <h2>قیمت پیشنهادی:</h2>
-    <p>{{prediction.predicted_price}}</p>
-    <br/>
-    <br/>
-    <h2> لیست آگهی های مشابه خودروی مورد نظر شما:</h2>
-    <table>
-        <tr>
-            <td>مدل</td>
-            <td>کارکرد</td>
-            <td>سال ساخت</td>
-            <td>مکان</td>
-            <td>قیمت</td>
-        </tr>
-        {% for car in similar_cars %}
-            <tr>
-                <td>{{car.make}}</td>
-                <td>{{car.mileage}}</td>
-                <td>{{car.year}}</td>
-                <td>{{car.location}}</td>
-                <td>{{car.price}}</td>
-            </tr>
-        {% endfor %}
-    </table>
+    <div class = 'flex-container'>
+        <div class="menu-container">
+            <div class="menu">
+                <a href="{% url 'CarRecomender:car_prediction'%}" class="menu-button">پیش بینی قیمت خودرو</a>
+                <a href="{% url 'CarRecomender:cars_list'%}" class="menu-button">لیست خودروها</a>
+            </div>
+        </div>
+        <header class = 'image-container'>
+            <img src="{% static 'CarRecomender/img/5.jpeg'%}">
+        </header>
+
+        <div class="form-container">
+            <h3>ویژگی های خودروی مورد نظر شما عبارت است از:</h3>
+            <form method="post">
+                {% csrf_token %}
+                <table class="table1">
+                    <tr>
+                        <td class = "car_items">{{form.make.label_tag}}</td>
+                        <td class="car_values">{{form.make.value}}</td>
+                    </tr>
+                    <tr>
+                        <td class = "car_items">{{form.mileage.label_tag}}</td>
+                        <td class="car_values">{{form.mileage.value}}</td>
+                    </tr>
+                    <tr>
+                        <td class = "car_items">{{form.year.label_tag}}</td>
+                        <td class="car_values">{{form.year.value}} </td>
+                    </tr>
+                    <tr>
+                        <td class = "car_items">{{form.location.label_tag}}</td>
+                        <td class="car_values">{{form.location.value}} </td>
+                    </tr>
+                </table>
+            </form>
+        <h3>قیمت پیشنهادی:</h3>
+        <p class = 'price'>{{prediction.predicted_price}}</p>
+        </div>
+
+        <br/>
+        <br/>
+        <div class="table2-container">
+            <h3> لیست آگهی های مشابه خودروی مورد نظر شما:</h3>
+            <div class="table2">
+                <table class="scrolling-table">
+                    <tr>
+                        <td class="similar_car_items_header">مدل</td>
+                        <td class="similar_car_items_header">کارکرد</td>
+                        <td class="similar_car_items_header">سال ساخت</td>
+                        <td class="similar_car_items_header">مکان</td>
+                        <td class="similar_car_items_header">قیمت</td>
+                    </tr>
+                    {% for car in similar_cars %}
+                        <tr>
+                            <td class = "similar_car_items">{{car.make}}</td>
+                            <td class = "similar_car_items">{{car.mileage}}</td>
+                            <td class = "similar_car_items">{{car.year}}</td>
+                            <td class = "similar_car_items">{{car.location}}</td>
+                            <td class = "similar_car_items">{{car.price}}</td>
+                        </tr>
+                    {% endfor %}
+            </table>
+            </div>
+
+        </div>
+
+
+    </div>
 
 </body>
 </html>
