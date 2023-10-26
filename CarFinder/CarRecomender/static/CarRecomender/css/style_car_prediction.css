@@ -112,6 +112,18 @@ input[type="text"]{
     font-family:  sans-serif Arial;
     font-weight: bold;
 }
+#id_location{
+    width: 50%;
+    padding: 5px;
+    border:1px solid tan;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #1F4C49;
+    background-color: antiquewhite;
+    margin-right: 50px;
+    font-family:  sans-serif Arial;
+    font-weight: bold;
+}
 .button-container{
     display: flex;
     justify-content: center;
