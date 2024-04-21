@@ -14,7 +14,7 @@ from selenium.webdriver.common.keys import Keys
 
 
 def clean_mileage(mileage):
-    cleaned = re.sub(r'\b(کیلومتر|کارکرد)\b', '', mileage)
+    cleaned = re.sub(r'\b(کیلومتر|کارکرد|km)\b', '', mileage)
     cleaned = re.sub(r'\bصفر\b', '0', cleaned)
     cleaned = re.sub(r'\bکارکرده\b', '300000', cleaned)
     cleaned = re.sub(r',', '', cleaned)
